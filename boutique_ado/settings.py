@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'home'
+    'home',
+    'products',
 ]
 
 # the django contrib.sites and site_id are needed to allow sign in using a user's social media accounts. 
