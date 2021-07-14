@@ -23,4 +23,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # This gives us all the urls we need for login, logout etc...
     path('', include('home.urls')),
     path('products/', include('products.urls')),
+    path('bag/', include('bag.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
