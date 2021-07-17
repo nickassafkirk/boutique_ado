@@ -23,6 +23,5 @@ def add_to_bag(request, item_id):
     # if not it's added to the bag dictionary
 
     request.session['bag'] = bag
-    print(request.session['bag'])
     return redirect(redirect_url)
  
