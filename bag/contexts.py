@@ -6,7 +6,7 @@ from products.models import Product
 
 def bag_contents(request):
     """ 
-    this is known as a contect processor. Instead of returning a template it returns the context object
+    this is known as a context processor. Instead of returning a template it returns the context object
     that we create and makes it available to all templates across the entire application.
     It's similar top how you can use request.user in any template.
     we need to add it to the context_processors list in the settings.py file 
