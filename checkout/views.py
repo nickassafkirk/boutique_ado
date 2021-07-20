@@ -20,15 +20,14 @@ def checkout(request):
     current_bag = bag_contents(request)
     total = current_bag['grand_total']
     stripe_total = round(total*100)
-    if stripe_secret_key:
-        stripe.api_key = stripe_secret_key
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
-        print(intent)
-    else:
-        print("SECRET KEY NOT BEING FOUND", settings.ALLOWED_HOSTS)
+   
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+    print(intent)
+   
 
     order_form = OrderForm()
     template = 'checkout/checkout.html'
