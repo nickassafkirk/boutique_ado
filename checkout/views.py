@@ -28,7 +28,7 @@ def checkout(request):
         )
         print(intent)
     else:
-        print("SECRET KEY NOT BEING FOUND", settings.SECRET_KEY)
+        print("SECRET KEY NOT BEING FOUND", settings.ALLOWED_HOSTS)
 
     order_form = OrderForm()
     template = 'checkout/checkout.html'
