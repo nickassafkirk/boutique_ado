@@ -9,7 +9,7 @@ class OrderForm(forms.ModelForm):
                   'street_address1', 'street_address2', 
                   'town_or_city', 'postcode', 'country', 
                   'county',)
-    
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto generated
@@ -26,7 +26,7 @@ class OrderForm(forms.ModelForm):
             'postcode': 'Postal Code',
             'town_or_city': 'Town or City',
             'street_address1': 'Street Address 1',
-            'street_address2' 'Street Address 2',
+            'street_address2': 'Street Address 2',
             'county': 'County',
         }
 
@@ -34,9 +34,9 @@ class OrderForm(forms.ModelForm):
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *' # puts a star on the placeholder if it's required
+                placeholder = f'{placeholders[field]} *'  # puts a star on the placeholder if it's required
             else:
                 placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder # applies placholder from varable above to each forms placeholder attr
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input' # adds a css class
-            self.fields[field].label = False # removes the forms input label
+            self.fields[field].widget.attrs['placeholder'] = placeholder  # applies placholder from varable above to each forms placeholder attr
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input'  # adds a css class
+            self.fields[field].label = False  # removes the forms input label
