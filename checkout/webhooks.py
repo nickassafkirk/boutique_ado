@@ -13,6 +13,7 @@ import stripe
 def webhook(request):
     """ Listen for webhooks from stripe """
     # Setup
+
     wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -37,5 +38,22 @@ def webhook(request):
         print("general")
         return HttpResponse(content=e, status=400)
 
-    print("Success!")
-    return HttpResponse(status=200)
+    # set up a webhook handler
+    handler = StripeWH_Handler(request)
+
+    # map webhook events to relevant hadnler functions
+    event_map = {
+        'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
+        'payment_intent.payment_failed': handler.handle_payment_intent_payment_failed,
+    }
+
+    # Get the webhook type from stripe
+    event_type = event['type']
+
+    # if there's a handler for it, get it from the event map
+    # or use the generic one by default
+    event_handler = event_map.get(event_type, handler.handle_event)
+
+    # call the event handler with the event
+    response = event_handler(event)
+    return response
