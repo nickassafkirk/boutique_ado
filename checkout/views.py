@@ -61,6 +61,7 @@ def checkout(request):
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
         }
+
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
@@ -97,6 +98,7 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bag'))
 
+            # save the info to the user's profile if all is well.
             print("Try clause successfull")
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
