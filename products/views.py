@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Product, Category
 from .forms import ProductForm
+from django.conf import settings
 
 
 # Create your views here.
@@ -81,7 +82,7 @@ def product_detail(request, product_id):
 def add_product(request):
     """ Add product to the store """
     if request.method == "POST":
-        form = ProductForm(request.POST, request.Files)
+        form = ProductForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()
@@ -92,9 +93,9 @@ def add_product(request):
 
     else:
         form = ProductForm()
-        template = 'products/add_product.html'
-        context = {
-            'form': form,
-        }
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
 
-        return render(request, template, context)
+    return render(request, template, context)
