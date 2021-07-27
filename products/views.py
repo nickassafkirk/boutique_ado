@@ -89,6 +89,7 @@ def add_product(request):
 
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
+        print(request.FILES)
 
         if form.is_valid():
             form.save()
