@@ -147,7 +147,7 @@ if development:
 else:
 
     DATABASES = {
-        'default': dj_database_url.parse('postgres://mfutfymyvvzbvf:323066ebb90792787bcaec79142a672d182f1c7995cf8be181fb3f9ebe553b1a@ec2-34-240-75-196.eu-west-1.compute.amazonaws.com:5432/da8cis1kdfq3b8')
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
 
