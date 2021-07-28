@@ -136,19 +136,19 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if development:
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.sqlite3',
-#            'NAME': BASE_DIR / 'db.sqlite3',
-#            }
-#    }
+if development:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+            }
+    }
 
-# else:
+else:
 
-DATABASES = {
-    'default': dj_database_url.parse('postgres://mfutfymyvvzbvf:323066ebb90792787bcaec79142a672d182f1c7995cf8be181fb3f9ebe553b1a@ec2-34-240-75-196.eu-west-1.compute.amazonaws.com:5432/da8cis1kdfq3b8')
-}
+    DATABASES = {
+        'default': dj_database_url.parse('postgres://mfutfymyvvzbvf:323066ebb90792787bcaec79142a672d182f1c7995cf8be181fb3f9ebe553b1a@ec2-34-240-75-196.eu-west-1.compute.amazonaws.com:5432/da8cis1kdfq3b8')
+    }
 
 
 # Password validation
@@ -225,8 +225,20 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
-STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
-DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
+
+if development:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
 
 
 # Default primary key field type
